@@ -5,7 +5,7 @@ using UnityEngine;
 public class Camara : MonoBehaviour
 {
     // Start is called before the
-     private Transform target;
+     public Transform target;
      public Vector3 offset;
 
      //Vectores para limitar el movimiento de la camara en los ejex x e y
@@ -21,7 +21,9 @@ public class Camara : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        //posicion deseada de la camara
+        if(target != null)
+        {
+             //posicion deseada de la camara
         Vector3 desiredPosition = target.position + offset;
 
         //limitamos la posicion en la X
@@ -36,5 +38,7 @@ public class Camara : MonoBehaviour
         Vector3 lerpedPosition = Vector3.Lerp(transform.position,clampedPosition,interpolationRatio);
 
         transform.position = lerpedPosition;
+        }
+       
     }
 }
