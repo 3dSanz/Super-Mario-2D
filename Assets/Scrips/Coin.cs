@@ -15,11 +15,11 @@ public class Coin : MonoBehaviour
         sfxManager = GameObject.Find("SFXManager").GetComponent<SFXManager>();
     }
 
-     public void Pick()
+    public void Pick()
     {
-        anim.SetBool("Moneda Cogida", true);
+        anim.SetBool("Giro Moneda", false);
         boxCollider.enabled = false;
         Destroy(this.gameObject);
         sfxManager.MonedaCogida();
-    }
+    } 
 }

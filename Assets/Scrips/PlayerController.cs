@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private GroundSensor sensor;
     public Animator anim;
     Coin coin;
+    FinishFlag bandera;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour
         sensor = GameObject.Find("GroundSensor").GetComponent<GroundSensor>();
         anim = GetComponent<Animator>();
         coin = GameObject.Find("Coin").GetComponent<Coin>();
+        bandera = GameObject.Find("FinishFlag").GetComponent<FinishFlag>();
 
         playerHealth = 10;
         Debug.Log(texto);
@@ -62,5 +64,13 @@ public class PlayerController : MonoBehaviour
             Coin coin = collision.gameObject.GetComponent<Coin>();
             coin.Pick();
         } 
-    }  
+
+        if (collision.gameObject.tag == "ColisionBandera")
+        {
+            FinishFlag bandera = collision.gameObject.GetComponent<FinishFlag>();
+            bandera.TocarBandera();
+        } 
+    }
+
+
 }
