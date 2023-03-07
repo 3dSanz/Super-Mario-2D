@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,18 +14,20 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 3f;
     private GroundSensor sensor;
     public Animator anim;
+    public Text coinText;
+    int contMonedas;
     Coin coin;
     FinishFlag bandera;
     // Start is called before the first frame update
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>(); 
         rBody = GetComponent<Rigidbody2D>();
         sensor = GameObject.Find("GroundSensor").GetComponent<GroundSensor>();
         anim = GetComponent<Animator>();
         coin = GameObject.Find("Coin").GetComponent<Coin>();
         bandera = GameObject.Find("FinishFlag").GetComponent<FinishFlag>();
-
+        contMonedas = 0;
         playerHealth = 10;
         Debug.Log(texto);
     }
@@ -63,6 +66,9 @@ public class PlayerController : MonoBehaviour
         {
             Coin coin = collision.gameObject.GetComponent<Coin>();
             coin.Pick();
+            contMonedas++;
+            coinText.text = "coin " + contMonedas;
+            Debug.Log(contMonedas);
         } 
 
         if (collision.gameObject.tag == "ColisionBandera")
@@ -71,6 +77,5 @@ public class PlayerController : MonoBehaviour
             bandera.TocarBandera();
         } 
     }
-
 
 }
