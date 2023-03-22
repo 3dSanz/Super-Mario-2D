@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 
 public class GroundSensor : MonoBehaviour
 {
@@ -10,11 +10,13 @@ public class GroundSensor : MonoBehaviour
 
     SFXManager sfxManager;
     SoundManager soundManager;
+    GameManager gameManager;
 
     private void Awake() {
         controller = GetComponentInParent<PlayerController>();
         sfxManager = GameObject.Find("SFXManager").GetComponent<SFXManager>();
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
     private void OnTriggerEnter2D(Collider2D other) 
     {
@@ -32,7 +34,7 @@ public class GroundSensor : MonoBehaviour
             Debug.Log("Estoy muerto");
             sfxManager.MarioDeath();
             soundManager.StopBGM();
-            SceneManager.LoadScene(2);
+            gameManager.GameOver();
         }
     }
 

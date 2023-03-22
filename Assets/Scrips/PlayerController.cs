@@ -14,10 +14,11 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 3f;
     private GroundSensor sensor;
     public Animator anim;
-    public Text coinText;
-    int contMonedas;
-    Coin coin;
+    //public Text coinText;
+    //int contMonedas;
+    //Coin coin;
     FinishFlag bandera;
+    GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,9 +26,10 @@ public class PlayerController : MonoBehaviour
         rBody = GetComponent<Rigidbody2D>();
         sensor = GameObject.Find("GroundSensor").GetComponent<GroundSensor>();
         anim = GetComponent<Animator>();
-        coin = GameObject.Find("Coin").GetComponent<Coin>();
-        bandera = GameObject.Find("FinishFlag").GetComponent<FinishFlag>();
-        contMonedas = 0;
+        //coin = GameObject.Find("Coin").GetComponent<Coin>();
+        bandera = GameObject.Find("Banderas_0").GetComponent<FinishFlag>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+       // contMonedas = 0;
         playerHealth = 10;
         Debug.Log(texto);
     }
@@ -35,25 +37,27 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        horizontal = Input.GetAxis("Horizontal");
-        //transform.position += new Vector3(horizontal, 0, 0) * playerSpeed * Time.deltaTime;
-        if (horizontal < 0)
-            {
-                spriteRenderer .flipX = true;
-                anim.SetBool("IsRunning", true);
-            } else if (horizontal > 0)
-                {
-                    spriteRenderer .flipX = false;
-                    anim.SetBool("IsRunning", true);
-                } else{
-                    anim.SetBool("IsRunning", false);
-                }
-        if (Input.GetButtonDown("Jump") && sensor.isGrounded)
-            {
-                rBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-                anim.SetBool("IsJumping", true);
-            }
-
+        if(gameManager.isGameOver == false)
+        {
+             horizontal = Input.GetAxis("Horizontal");
+          //transform.position += new Vector3(horizontal, 0, 0) * playerSpeed * Time.deltaTime;
+         if (horizontal < 0)
+             {
+                 spriteRenderer .flipX = true;
+                 anim.SetBool("IsRunning", true);
+                } else if (horizontal > 0)
+                 {
+                        spriteRenderer .flipX = false;
+                      anim.SetBool("IsRunning", true);
+                   } else{
+                      anim.SetBool("IsRunning", false);
+                   }
+          if (Input.GetButtonDown("Jump") && sensor.isGrounded)
+               {
+                   rBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                    anim.SetBool("IsJumping", true);
+               }
+        }
     }
 
     private void FixedUpdate() {
@@ -62,19 +66,29 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision) 
     {
-        if (collision.gameObject.tag == "ColisionMoneda")
+       /* if (collision.gameObject.tag == "ColisionMoneda")
         {
             Coin coin = collision.gameObject.GetComponent<Coin>();
             coin.Pick();
             contMonedas++;
             coinText.text = "coin " + contMonedas;
             Debug.Log(contMonedas);
-        } 
+        } */
 
         if (collision.gameObject.tag == "ColisionBandera")
         {
             FinishFlag bandera = collision.gameObject.GetComponent<FinishFlag>();
             bandera.TocarBandera();
+        } 
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.tag == "ColisionMoneda")
+        {
+            Coin coin = collider.gameObject.GetComponent<Coin>();
+            coin.Pick();
+            gameManager.AddCoin();
         } 
     }
 
