@@ -14,6 +14,12 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 3f;
     private GroundSensor sensor;
     public Animator anim;
+
+    //variable para el prefab
+    public GameObject bulletPrefab;
+    //variable para la posicion desde la que se dispara el prefab
+    public Transform bulletSpawn;
+
     //public Text coinText;
     //int contMonedas;
     //Coin coin;
@@ -43,11 +49,13 @@ public class PlayerController : MonoBehaviour
           //transform.position += new Vector3(horizontal, 0, 0) * playerSpeed * Time.deltaTime;
          if (horizontal < 0)
              {
-                 spriteRenderer .flipX = true;
+                 //spriteRenderer .flipX = true;
+                 transform.rotation = Quaternion.Euler(0, 180, 0);
                  anim.SetBool("IsRunning", true);
                 } else if (horizontal > 0)
                  {
-                        spriteRenderer .flipX = false;
+                      //spriteRenderer .flipX = false;
+                      transform.rotation = Quaternion.Euler(0, 0, 0);
                       anim.SetBool("IsRunning", true);
                    } else{
                       anim.SetBool("IsRunning", false);
@@ -57,6 +65,12 @@ public class PlayerController : MonoBehaviour
                    rBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                     anim.SetBool("IsJumping", true);
                }
+        }
+
+        //Codigo para disparar la esfera
+        if(Input.GetKeyDown(KeyCode.K) && gameManager.canShoot)
+        {
+            Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
         }
     }
 
@@ -90,6 +104,12 @@ public class PlayerController : MonoBehaviour
             coin.Pick();
             gameManager.AddCoin();
         } 
+
+        if(collider.gameObject.tag == "PowerUp")
+        {
+            gameManager.canShoot = true;
+            Destroy(collider.gameObject);
+        }
     }
 
 }

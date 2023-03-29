@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
     public bool isGameOver;
     public Text coinText;
     int contMonedas;
+    public bool canShoot;
+    public float powerUpDuration = 5;
+    public float powerUpTimer = 0;
 
    public void GameOver()
     {
@@ -19,6 +22,11 @@ public class GameManager : MonoBehaviour
 
         //Llamamos a la corutina LoadScene
         StartCoroutine("LoadScene");
+    }
+
+    void Update() 
+    {
+        ShootPowerUp();
     }
 
    /* void LoadScene()
@@ -37,5 +45,20 @@ public class GameManager : MonoBehaviour
     {
         contMonedas++;
         coinText.text = "coin " + contMonedas.ToString();
+    }
+
+    void ShootPowerUp()
+    {
+        if(canShoot)
+        {
+            if(powerUpTimer <= powerUpDuration)
+            {
+                powerUpTimer += Time.deltaTime;
+            }else
+            {
+                canShoot = false;
+                powerUpTimer = 0;
+            }
+        }
     }
 }
