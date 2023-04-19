@@ -25,6 +25,13 @@ public class PlayerController : MonoBehaviour
     //Coin coin;
     FinishFlag bandera;
     GameManager gameManager;
+
+    //Para definir la hitbox
+    public Transform attackHitBox;
+    //Para definir el rango de ataque
+    public float attackRange;
+    //Para decirle al ataque con que interactuara
+    public LayerMask enemyLayer;
     // Start is called before the first frame update
     void Start()
     {
@@ -72,10 +79,26 @@ public class PlayerController : MonoBehaviour
         {
             Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
         }
+
+        //Codigo para iniciar el ataque
+        if(Input.GetKeyDown(KeyCode.J))
+        {
+            Attack();
+        }
     }
 
     private void FixedUpdate() {
         rBody.velocity = new Vector2 (horizontal*playerSpeed, rBody.velocity.y);
+    }
+
+    void Attack()
+    {
+         Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(attackHitBox.position, attackRange, enemyLayer);
+
+         for(int i = 0; i < enemiesInRange.Length; i++)
+         {
+            Destroy(enemiesInRange[i].gameObject);
+         }
     }
 
     void OnCollisionEnter2D(Collision2D collision) 
@@ -110,6 +133,11 @@ public class PlayerController : MonoBehaviour
             gameManager.canShoot = true;
             Destroy(collider.gameObject);
         }
+    }
+
+    void OnDrawGizmos() 
+    {
+        Gizmos.DrawWireSphere(attackHitBox.position, attackRange);    
     }
 
 }

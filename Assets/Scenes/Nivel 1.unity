@@ -3989,6 +3989,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &98479704
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 98479705}
+  m_Layer: 0
+  m_Name: AttackHitBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &98479705
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98479704}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.71, y: 0.02, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1456824701}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &104930854
 GameObject:
   m_ObjectHideFlags: 0
@@ -62479,20 +62510,32 @@ PrefabInstance:
       value: Mario_0
       objectReference: {fileID: 0}
     - target: {fileID: 8909364755786566443, guid: b8b24a4c7c26df44c9a788a4f64238f7, type: 3}
+      propertyPath: attackRange
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8909364755786566443, guid: b8b24a4c7c26df44c9a788a4f64238f7, type: 3}
       propertyPath: bulletSpawn
       value: 
       objectReference: {fileID: 409906154}
     - target: {fileID: 8909364755786566443, guid: b8b24a4c7c26df44c9a788a4f64238f7, type: 3}
+      propertyPath: attackHitBox
+      value: 
+      objectReference: {fileID: 98479705}
+    - target: {fileID: 8909364755786566443, guid: b8b24a4c7c26df44c9a788a4f64238f7, type: 3}
       propertyPath: bulletPrefab
       value: 
       objectReference: {fileID: 7615576357446922333, guid: 50b7bf0144c18d64ca285890755247aa, type: 3}
+    - target: {fileID: 8909364755786566443, guid: b8b24a4c7c26df44c9a788a4f64238f7, type: 3}
+      propertyPath: enemyLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 8909364755786566445, guid: b8b24a4c7c26df44c9a788a4f64238f7, type: 3}
       propertyPath: m_RootOrder
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8909364755786566445, guid: b8b24a4c7c26df44c9a788a4f64238f7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -108.15
+      value: -108.27
       objectReference: {fileID: 0}
     - target: {fileID: 8909364755786566445, guid: b8b24a4c7c26df44c9a788a4f64238f7, type: 3}
       propertyPath: m_LocalPosition.y
