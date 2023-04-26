@@ -74,4 +74,16 @@ public class Enemy : MonoBehaviour
             }
         } 
     }
+
+    //Todo lo que sea visible por la camara
+    void OnBecameVisible() 
+    {
+        gameManager.enemiesInScreen.Add(this.gameObject);
+    }
+
+    //Todo lo que no este en la vista de la camara
+    void OnBecameInvisible() 
+    {
+        gameManager.enemiesInScreen.Remove(this.gameObject);
+    }
 }
