@@ -36,6 +36,7 @@ public class Enemy : MonoBehaviour
         anim.SetBool("isDead", true);
         boxCollider.enabled = false;
         Destroy(this.gameObject, 0.5f);
+        sfxManager.MarioDeath();
     }
 
     void OnCollisionEnter2D(Collision2D collision) 
